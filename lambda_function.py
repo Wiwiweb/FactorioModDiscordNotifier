@@ -13,10 +13,10 @@ def lambda_handler():
         if new_changelog:
             print("New update: " + str(new_changelog))
             new_changelogs.append(new_changelog)
-            # set_latest_version(mod_name, new_changelog.latest_version)
+            set_latest_version(mod_name, new_changelog.latest_version)
 
-    # if new_changelogs:
-    #     send_changelog_messages(new_changelogs)
+    if new_changelogs:
+        send_changelog_messages(new_changelogs)
 
 
 if __name__ == '__main__':
