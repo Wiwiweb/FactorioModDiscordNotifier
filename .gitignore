@@ -1,2 +1,4 @@
 __pycache__
 .vscode/launch.json
+lambda-dependencies
+lambda-deployment-package.zip

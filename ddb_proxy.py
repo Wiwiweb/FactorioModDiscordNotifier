@@ -14,11 +14,11 @@ def get_all_mods():
         mods[mod_id] = latest_known_version
     return mods
 
-def set_latest_version(mod_name, latestVersion):
+def set_latest_version(mod_id, latestVersion):
     ddb.update_item(
         TableName=DDB_TABLE_NAME, 
-        Key={'ModId': {'S': mod_name}},
+        Key={'ModName': {'S': mod_id}},
         UpdateExpression='SET LatestVersion = :v',
         ExpressionAttributeValues={':v': {'S': latestVersion}}
     )
-    print("Updated {} to version {} in DDB".format(mod_name, latestVersion))
+    print("Updated {} to version {} in DDB".format(mod_id, latestVersion))
