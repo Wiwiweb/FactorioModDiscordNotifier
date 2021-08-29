@@ -5,7 +5,7 @@ DDB_TABLE_NAME = "FactorioModDiscordNotifier-SE"
 
 ddb = boto3.client('dynamodb', region_name=AWS_REGION)
 
-def get_all_mods():
+def get_known_mods():
     response = ddb.scan(TableName=DDB_TABLE_NAME)
     mods = {}
     for item in response['Items']:
