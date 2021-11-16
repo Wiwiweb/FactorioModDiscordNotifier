@@ -15,6 +15,8 @@ def get_updated_mods(known_mods_versions):
     owner_mods = get_all_mods_by_owner()
     for mod in owner_mods:
         if mod['name'] not in known_mods_versions or mod['latest_release']['version'] != known_mods_versions[mod['name']]:
+            known_version = known_mods_versions[mod['name']] if mod['name'] in known_mods_versions else None
+            print('New version of {}: {} -> {}'.format(mod['name'], known_version, mod['latest_release']['version']))
             new_changelog = get_details_for_mod(mod['name'])
             new_changelog_details.append(new_changelog)
     return new_changelog_details

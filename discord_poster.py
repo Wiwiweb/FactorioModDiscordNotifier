@@ -17,8 +17,11 @@ class MyClient(discord.Client):
         print('We have logged in as {0.user}'.format(self))
         channel = self.get_channel(CHANNEL_ID)
         for changelog in self.changelogs:
+             print('Posting in: {}'.format(channel.name))
              message = await channel.send(embed=format_embed(changelog))
+             print('Posted message: '.format(message.jump_url))
              await message.publish()
+             print('Published message')
         await self.close()
 
 
