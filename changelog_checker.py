@@ -1,6 +1,6 @@
-import requests
+import os
 import re
-
+import requests
 from common import ChangelogDetails
 
 ALL_MODS_URL = "https://mods.factorio.com/api/mods?version=1.1&page_size=max"
@@ -8,7 +8,7 @@ MOD_DETAILS_URL = "https://mods.factorio.com/api/mods/{}/full"
 THUMBNAIL_BASE_URL = "https://mods-data.factorio.com"
 VERSION_SEPARATOR = "---------------------------------------------------------------------------------------------------"
 
-OWNER = "Earendel"
+OWNER = os.environ.get('MOD_AUTHOR')
 
 def get_updated_mods(known_mods_versions):
     new_changelog_details = []

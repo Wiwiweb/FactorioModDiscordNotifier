@@ -19,7 +19,7 @@ class MyClient(discord.Client):
         for changelog in self.changelogs:
              print('Posting in: {}'.format(channel.name))
              message = await channel.send(embed=format_embed(changelog))
-             print('Posted message: '.format(message.jump_url))
+             print('Posted message: {}'.format(message.jump_url))
              await message.publish()
              print('Published message')
         await self.close()

@@ -1,7 +1,8 @@
+import os
 import boto3
 
-AWS_REGION = "us-east-2"
-DDB_TABLE_NAME = "FactorioModDiscordNotifier-SE"
+AWS_REGION = os.environ.get('AWS_REGION')
+DDB_TABLE_NAME = os.environ.get('DDB_TABLE')
 
 ddb = boto3.client('dynamodb', region_name=AWS_REGION)
 
