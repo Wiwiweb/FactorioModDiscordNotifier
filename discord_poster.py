@@ -40,11 +40,11 @@ def format_embeds(changelog):
     formatted_changelog = ""
     # Remove left padding
     for line in changelog.changelog.splitlines():
-        formatted_changelog += line.lstrip() + '\n'
+        formatted_changelog += line[2:] + '\n' # Remove first 2 spaces
     formatted_changelog = formatted_changelog.partition('\n')[2]  # Remove date line
 
     # Bold all sub-headers
-    subheader_regex = re.compile(r'(\w+:)\s*$', re.MULTILINE)
+    subheader_regex = re.compile(r'^  (\w+:)\s*$', re.MULTILINE)
     formatted_changelog = subheader_regex.sub(r'**\1**', formatted_changelog)
 
     changelogs_posts = [formatted_changelog]
@@ -78,6 +78,6 @@ def split_in_two_at_line_break(string):
         split_point -= 1
         split_char = string[split_point]
 
-    first_part = string[:split_point - 1]  # Don't include the actual line break
+    first_part = string[:split_point]  # Don't include the actual line break
     second_part = string[split_point:]
     return first_part, second_part
