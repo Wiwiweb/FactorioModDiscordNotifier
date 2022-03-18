@@ -37,14 +37,27 @@ def send_changelog_messages(changelogs):
 
 
 def format_embeds(changelog):
-    formatted_changelog = ""
-    # Remove left padding
+
+    formatted_changelog = []
     for line in changelog.changelog.splitlines():
-        formatted_changelog += line[2:] + '\n' # Remove first 2 spaces
-    formatted_changelog = formatted_changelog.partition('\n')[2]  # Remove date line
+        line = line[2:] # Remove first 2 spaces
+        final_line = []
+        for i, char in enumerate(line):
+            if char == " ":
+                # Prefix each leading whitespaces with zero-length char to prevent Discord from removing them
+                final_line += "\u200B "
+            else:
+                # Add the rest and break
+                final_line.append(line[i:])
+                break
+        final_line = ''.join(final_line)
+        formatted_changelog.append(final_line)
+
+    formatted_changelog = formatted_changelog[1:] # Remove date line
+    formatted_changelog = '\n'.join(formatted_changelog)
 
     # Bold all sub-headers
-    subheader_regex = re.compile(r'^  (\w+:)\s*$', re.MULTILINE)
+    subheader_regex = re.compile(r'^(\w+:)\s*$', re.MULTILINE)
     formatted_changelog = subheader_regex.sub(r'**\1**', formatted_changelog)
 
     changelogs_posts = [formatted_changelog]
