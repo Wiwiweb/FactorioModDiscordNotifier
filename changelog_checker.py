@@ -71,11 +71,14 @@ def get_details_for_mod(mod_id):
 
     mod_name = request_json['title']
     image_url = THUMBNAIL_BASE_URL + request_json['thumbnail']
+    last_version = request_json['releases'][-1]['version']
 
-    all_changelogs = request_json['changelog']
-    _, _, all_changelogs = all_changelogs.partition('\n')  # Remove first line
-    last_changelog, _, _ = all_changelogs.partition(VERSION_SEPARATOR)
-    version_line, _, last_changelog = last_changelog.partition('\n')
-    last_version = re.search(r'[\d\.]+', version_line).group(0)
+    if 'changelog' in request_json:
+        all_changelogs = request_json['changelog']
+        _, _, all_changelogs = all_changelogs.partition('\n')  # Remove first line
+        last_changelog, _, _ = all_changelogs.partition(VERSION_SEPARATOR)
+        _version_line, _, last_changelog = last_changelog.partition('\n')
+    else:
+        last_changelog = None
 
     return ChangelogDetails(mod_id, mod_name, last_version, image_url, last_changelog)

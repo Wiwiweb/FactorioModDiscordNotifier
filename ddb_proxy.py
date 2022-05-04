@@ -20,15 +20,18 @@ def get_known_mods():
 
 
 def set_version_and_changelog(mod_id, last_version, last_posted_changelog):
+    last_posted_changelog_ddb = last_posted_changelog
+    if last_posted_changelog is None:
+        last_posted_changelog_ddb = ""
     ddb.update_item(
         TableName=DDB_TABLE_NAME,
         Key={'ModName': {'S': mod_id}},
         UpdateExpression='SET LastKnownVersion = :a, LastPostedChangelog = :b',
         ExpressionAttributeValues={':a': {'S': last_version},
-                                   ':b': {'S': last_posted_changelog}}
+                                   ':b': {'S': last_posted_changelog_ddb}}
     )
     print("Updated {} in DDB: LastKnownVersion: {} - LastPostedChangelog: {}"
-          .format(mod_id, last_version, last_posted_changelog))
+          .format(mod_id, last_version, last_posted_changelog_ddb))
 
 
 def set_last_known_version(mod_id, last_known_version):

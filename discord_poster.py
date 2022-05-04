@@ -37,29 +37,7 @@ def send_changelog_messages(changelogs):
 
 
 def format_embeds(changelog):
-
-    formatted_changelog = []
-    for line in changelog.changelog.splitlines():
-        line = line[2:] # Remove first 2 spaces
-        final_line = []
-        for i, char in enumerate(line):
-            if char == " ":
-                # Prefix each leading whitespaces with zero-length char to prevent Discord from removing them
-                final_line += "\u200B "
-            else:
-                # Add the rest and break
-                final_line.append(line[i:])
-                break
-        final_line = ''.join(final_line)
-        formatted_changelog.append(final_line)
-
-    formatted_changelog = formatted_changelog[1:] # Remove date line
-    formatted_changelog = '\n'.join(formatted_changelog)
-
-    # Bold all sub-headers
-    subheader_regex = re.compile(r'^(\w+:)\s*$', re.MULTILINE)
-    formatted_changelog = subheader_regex.sub(r'**\1**', formatted_changelog)
-
+    formatted_changelog = get_formatted_changelog(changelog)
     changelogs_posts = [formatted_changelog]
     while len(changelogs_posts[-1]) > DESCRIPTION_LIMIT:
         first_half, second_half = split_in_two_at_line_break(changelogs_posts[-1])
@@ -82,6 +60,34 @@ def format_embeds(changelog):
         )
         embeds.append(embed)
     return embeds
+
+
+def get_formatted_changelog(changelog):
+    if changelog.changelog is None:
+        return "(No changelog)"
+
+    formatted_changelog = []
+    for line in changelog.changelog.splitlines():
+        line = line[2:] # Remove first 2 spaces
+        final_line = []
+        for i, char in enumerate(line):
+            if char == " ":
+                # Prefix each leading whitespaces with zero-length char to prevent Discord from removing them
+                final_line += "\u200B "
+            else:
+                # Add the rest and break
+                final_line.append(line[i:])
+                break
+        final_line = ''.join(final_line)
+        formatted_changelog.append(final_line)
+
+    formatted_changelog = formatted_changelog[1:] # Remove date line
+    formatted_changelog = '\n'.join(formatted_changelog)
+
+    # Bold all sub-headers
+    subheader_regex = re.compile(r'^(\w+:)\s*$', re.MULTILINE)
+    formatted_changelog = subheader_regex.sub(r'**\1**', formatted_changelog)
+    return formatted_changelog
 
 
 def split_in_two_at_line_break(string):
