@@ -13,7 +13,7 @@ DESCRIPTION_LIMIT = 4096
 
 class MyClient(discord.Client):
     def __init__(self, changelogs):
-        super().__init__()
+        super().__init__(intents=discord.Intents.default())
         self.changelogs = changelogs
 
     async def on_ready(self):
