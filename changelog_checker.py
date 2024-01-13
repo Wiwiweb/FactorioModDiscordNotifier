@@ -70,8 +70,11 @@ def get_details_for_mod(mod_id):
     request_json = req.json()
 
     mod_name = request_json['title']
-    image_url = THUMBNAIL_BASE_URL + request_json['thumbnail']
     last_version = request_json['releases'][-1]['version']
+    if 'thumbnail' in request_json:
+        image_url = THUMBNAIL_BASE_URL + request_json['thumbnail']
+    else:
+        image_url = None
 
     if 'changelog' in request_json:
         all_changelogs = request_json['changelog']
