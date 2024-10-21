@@ -1,4 +1,8 @@
+#!/bin/bash
+
 rm lambda-deployment-package.zip
+
+set -e
 
 pip install --target ./lambda-dependencies -r requirements-lambda.txt
 cd lambda-dependencies
