@@ -28,7 +28,7 @@ Then run the package creation script with `./package-to-lambda-zip.sh`. It shoul
 In the "Configuration" tab, click "Environment variables". Add these variables:
 * `DDB_TABLE`	The name of that DynamoDB table you created earlier.
 * `DISCORD_CHANNEL`: Channel id that the bot will post to. It's an 18-digit number. Right click on a discord channel and "Copy ID" to find it.
-* `DISCORD_TOKEN`: The "Client secret" of the discord Application that will post the changelog. See https://discord.com/developers/applications/
+* `DISCORD_TOKEN`: The "bot token" (not the client secret) of the discord Application that will post the changelog. See https://discord.com/developers/applications/
 * `MOD_AUTHOR`: Your Factorio Mod Portal name. That's the name the bot will look for to find relevant mods.
   
 Finally, click In the "Function overview" at the top, click "Add trigger". Choose "EventBridge (CloudWatch Events)" then "Create a new rule". Give it a name like "EveryMinute", pick the rule type "Schedule" and give it the schedule `rate(1 minute)`.
