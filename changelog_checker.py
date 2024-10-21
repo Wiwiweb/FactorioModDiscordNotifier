@@ -5,7 +5,7 @@ from ddb_proxy import set_last_known_version
 from ddb_proxy import set_version_and_changelog
 from common import ChangelogDetails
 
-ALL_MODS_URL = "https://mods.factorio.com/api/mods?version=1.1&page_size=max"
+ALL_MODS_URL = "https://mods.factorio.com/api/mods?version=2.0&page_size=max"
 MOD_DETAILS_URL = "https://mods.factorio.com/api/mods/{}/full"
 THUMBNAIL_BASE_URL = "https://mods-data.factorio.com"
 VERSION_SEPARATOR = "---------------------------------------------------------------------------------------------------"
